@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+    <script type="text/javascript" src="ui/jquery.min.js"></script>
+    <script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#grid').datagrid({
+                url: 'user/userlist',
+                fit: true,
+                columns: [[
+                    {field: 'id', title: '编号', width: 50},
+                    {field: 'username', title: '姓名', width: 200},
+                    {field: 'address', title: '地址', width: 200},
+                    {
+                        field: 'del', title: '删除', width: 100, formatter: function (value, row, index) {
+                            var rowid=row.id;
+                            var str = '<a href="/user/del?id='+row.id+'" name="del" class="easyui-linkbutton" >删除</a>';
+
+                            console.log(rowid);
+                            return str;
+                        }
+                    },
+                ]],
+                onLoadSuccess:function(data){
+                    $("a[name='del']").linkbutton({text:'删除',plain:true,iconCls:'icon-remove'});
+                },
+            })
+        })
+    </script>
+<style>
+    .datagrid-body{
+        display: table;
+    }
+</style>
+</head>
+<body>
+<table id="grid"></table>
+</body>
+</html>
